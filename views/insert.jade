@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    h1= title
+    form#FormInsertData(name='insertData', method='post', action='/insertData')
+        label(for='txtNome') Nome: 
+        input#txtNome(type='text', name='nome')
+        br
+
+        label(for='txtCognome') Cognome: 
+        input#txtCognome(type='text', name='cognome')
+        br
+
+        button#btnSubmit(type='submit') Invia dati
