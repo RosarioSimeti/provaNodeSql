@@ -8,7 +8,7 @@ router.get('/', function (req, res, next) {
 
 /* GET insert page. */
 router.get('/insert', function (req, res) {
-    res.render('insert', { title: 'Aggiungi nuovo utente' });
+    res.render('insert', {title: 'Inserisci utente'});
 });
 
 /* POST to Add User Service */
@@ -30,8 +30,9 @@ router.post('/insertData', function (req, res) {
         var stmt = db.prepare("INSERT INTO Persona (nome, cognome) VALUES (?, ?)");
         this.nome = nome;
         this.cognome = cognome;
-
+        stmt.run(nome, cognome);
         stmt.finalize();
+
     }, function (err, doc) {
         if (err) {
             // If it failed, return error
@@ -45,5 +46,18 @@ router.post('/insertData', function (req, res) {
         }
     });
 });
+
+/* GET lista utenti */
+router.get('/list', function(req, res) {
+    var db = req.db;
+    // Submit to the DB
+    db.each("SELECT * from Persona", function (err, row) {
+        dato = row.ID + " " + row.nome + " " + row.cognome;
+    });
+    res.render('list', { title: 'Lista persone sul DB' });
+
+});
+
+
 
 module.exports = router;
