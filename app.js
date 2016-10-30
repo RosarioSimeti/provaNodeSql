@@ -43,6 +43,11 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+app.use((req, res, next) => {
+  req.db = db;
+  next();
+});
+
 // error handlers
 
 // development error handler
